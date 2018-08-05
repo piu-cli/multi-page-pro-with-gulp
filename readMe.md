@@ -5,7 +5,7 @@
 ## 创建项目
 
     yarn install 或者 npm i 安装项目依赖
-    npm run create 项项目中创建 src/ 目录作为开发目录
+    npm run create 在项目中创建 src/ 目录作为开发目录
 
 ## 开发环境
 
