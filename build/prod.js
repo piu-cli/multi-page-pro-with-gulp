@@ -1,4 +1,6 @@
 const gulp = require('gulp')
+const path = require('path')
+const RevAll = require('gulp-rev-all')
 const postcss = require('gulp-postcss')
 const cssnano = require('cssnano')
 const autoprefixer = require('autoprefixer')
@@ -53,7 +55,14 @@ function prod() {
     interlaced: true,
   })).pipe(gulp.dest(Config.img.dist)))
 
-  gulp.task('build', ['html', 'css', 'less', 'js', 'assets', 'images'])
+  gulp.task('build', ['html', 'css', 'less', 'js', 'assets', 'images'], () => {
+    gulp.src([path.resolve(__dirname, '../dist/**')])
+      .pipe(RevAll.revision({
+        dontRenameFile: ['.html'], // 不给 html 文件添加版本号
+        dontUpdateReference: ['.html'], // 不给文件里链接的html加版本号
+      }))
+      .pipe(gulp.dest(path.resolve(__dirname, '../cdn')))
+  })
 }
 
 module.exports = prod
